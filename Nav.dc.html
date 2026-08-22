@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<header style="background:#0E4A47;padding:26px 5vw 20px;display:flex;flex-direction:column;align-items:center;gap:24px;border-bottom:1px solid rgba(255,255,255,0.14)">
+  <a href="Home.dc.html" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3.4vw,2.3rem);font-weight:400;letter-spacing:0.24em;text-transform:uppercase;color:#FFFFFF;text-align:center;line-height:1">Susan Kirwin</a>
+  <ul class="nav-links" style="display:flex;gap:38px;list-style:none;margin:0;padding:0;flex-wrap:wrap;justify-content:center">
+    <li><a href="Home.dc.html" style="{{ homeStyle }}">Home</a></li>
+    <li><a href="Gallery.dc.html" style="{{ galleryStyle }}">Gallery</a></li>
+    <li><a href="Commissions.dc.html" style="{{ commissionsStyle }}">Commissions</a></li>
+    <li><a href="About.dc.html" style="{{ aboutStyle }}">About</a></li>
+    <li><a href="Contact.dc.html" style="{{ contactStyle }}">Contact</a></li>
+  </ul>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:150},&quot;current&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;gallery&quot;,&quot;commissions&quot;,&quot;about&quot;,&quot;contact&quot;]}}">
+class Component extends DCLogic {
+  renderVals() {
+    const c = this.props.current;
+    const base = {fontFamily:"'Jost', sans-serif",fontSize:'0.74rem',letterSpacing:'0.2em',textTransform:'uppercase',color:'rgba(255,255,255,0.72)',paddingBottom:'4px',borderBottom:'1px solid transparent'};
+    const on = {color:'#FFFFFF',borderBottom:'1px solid rgba(255,255,255,0.6)'};
+    const mk = k => c === k ? {...base, ...on} : base;
+    return {homeStyle:mk('home'),galleryStyle:mk('gallery'),commissionsStyle:mk('commissions'),aboutStyle:mk('about'),contactStyle:mk('contact')};
+  }
+}
+</script>
+</body>
+</html>

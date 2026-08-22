@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0E4A47;color:#FFFFFF;font-family:'Jost',sans-serif;overflow-x:hidden}
+  a{text-decoration:none;color:#FFFFFF}
+  a:hover{color:rgba(255,255,255,0.7)}
+  ::selection{background:#FFFFFF;color:#0E4A47}
+  @media (max-width:1000px){.steps-grid{grid-template-columns:repeat(2,1fr) !important}.info-grid{grid-template-columns:1fr !important}}
+  @media (max-width:600px){.steps-grid{grid-template-columns:1fr !important}}
+  @media (max-width:760px){.compare-grid{grid-template-columns:1fr !important}.example-grid{grid-template-columns:1fr !important}}
+</style>
+</helmet>
+<dc-import name="Nav" current="commissions" hint-size="100%,150px"></dc-import>
+
+<section style="padding:90px 5vw 0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px">
+  <span style="font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.6)">Work With Susan</span>
+  <h1 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2rem,4.6vw,3.2rem);letter-spacing:0.06em;margin:0">Commissions</h1>
+  <p style="font-family:'Jost',sans-serif;font-weight:300;max-width:62ch;font-size:1rem;line-height:1.8;margin:0;color:rgba(255,255,255,0.8)">A painting makes a meaningful gift for weddings, birthdays or anniversaries. If you have a photo you'd like painted and framed, get in touch — here's exactly how it works.</p>
+</section>
+
+<section style="padding:20px 5vw 60px;max-width:1300px;margin:0 auto">
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.15rem,2.2vw,1.5rem);text-align:center;margin:0 0 34px">Prices starting from €250, excluding framing</p>
+  <h3 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.4rem;letter-spacing:0.14em;text-transform:uppercase;text-align:center;margin:0 0 32px">How to begin</h3>
+  <div class="steps-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:30px">
+    <div style="border-top:1px solid rgba(255,255,255,0.25);padding-top:20px">
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(255,255,255,0.6);font-size:1rem">01</span>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin:8px 0 10px">Send a photo</div>
+      <p style="font-family:'Jost',sans-serif;font-weight:300;color:rgba(255,255,255,0.78);font-size:0.9rem;line-height:1.7;margin:0">Send as many photos of the subject as you can - we can decide together which one to use.</p>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.25);padding-top:20px">
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(255,255,255,0.6);font-size:1rem">02</span>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin:8px 0 10px">Sketch &amp; layout</div>
+      <p style="font-family:'Jost',sans-serif;font-weight:300;color:rgba(255,255,255,0.78);font-size:0.9rem;line-height:1.7;margin:0">I'll get started on preliminary sketches, to finalise the composition before painting begins.</p>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.25);padding-top:20px">
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(255,255,255,0.6);font-size:1rem">03</span>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin:8px 0 10px">Paint</div>
+      <p style="font-family:'Jost',sans-serif;font-weight:300;color:rgba(255,255,255,0.78);font-size:0.9rem;line-height:1.7;margin:0">The fun part! 2–10 weeks for an average size piece (12" × 16"), depending on complexity and medium.</p>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.25);padding-top:20px">
+      <span style="font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(255,255,255,0.6);font-size:1rem">04</span>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin:8px 0 10px">Finishing touches</div>
+      <p style="font-family:'Jost',sans-serif;font-weight:300;color:rgba(255,255,255,0.78);font-size:0.9rem;line-height:1.7;margin:0">Drying can take up to 2 months, depending on the medium of the painting. When it's dry it will be varnished &amp; framed. I can do this for you, or you can chose a framer yourself.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding:0 5vw 60px;max-width:1300px;margin:0 auto">
+  <h3 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.4rem;letter-spacing:0.14em;text-transform:uppercase;text-align:center;margin:0 0 32px">Which medium?</h3>
+  <div class="compare-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:34px">
+    <div style="border-top:1px solid rgba(255,255,255,0.25);padding-top:20px">
+      <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;margin:0 0 12px">Oil</h4>
+      <p style="font-family:'Jost',sans-serif;font-weight:300;color:rgba(255,255,255,0.78);font-size:0.95rem;line-height:1.75;margin:0;max-width:50ch">The artists choice — a beautifully rich finish, glazes can be layered over paintings for depth and complexity of colour. Drying can take anywhere from one month to one year.</p>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.25);padding-top:20px">
+      <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;margin:0 0 12px">Acrylic</h4>
+      <p style="font-family:'Jost',sans-serif;font-weight:300;color:rgba(255,255,255,0.78);font-size:0.95rem;line-height:1.75;margin:0;max-width:50ch">Acrylic is the better choice when a faster turnaround matters — it dries within hours rather than months, without sacrificing depth.</p>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.25);padding-top:20px">
+      <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;margin:0 0 12px">Watercolour</h4>
+      <p style="font-family:'Jost',sans-serif;font-weight:300;color:rgba(255,255,255,0.78);font-size:0.95rem;line-height:1.75;margin:0;max-width:50ch">Watercolour brings a light, luminous quality that oils can't match — perfect for capturing atmosphere and movement, with each piece feeling fresh and alive rather than heavily worked.</p>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.25);padding-top:20px">
+      <h4 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;margin:0 0 12px">Charcoal or Pencil</h4>
+      <p style="font-family:'Jost',sans-serif;font-weight:300;color:rgba(255,255,255,0.78);font-size:0.95rem;line-height:1.75;margin:0;max-width:50ch">Charcoal captures emotion and immediacy — bold, expressive marks with rich depth in the darks, ideal for striking portraits, pets and studies with real presence.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding:0 5vw 60px;max-width:1300px;margin:0 auto">
+  <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px;margin-bottom:52px">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.4vw,1.7rem);line-height:1.6;max-width:40ch;margin:0">Do you have an idea for a painting that someone would love? Get in touch to talk it through.</p>
+    <a href="Contact.dc.html" style="font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:#0E4A47;background:#FFFFFF;padding:16px 34px" style-hover="background:rgba(255,255,255,0.85)">Enquire about a commission</a>
+  </div>
+  <h3 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.4rem;letter-spacing:0.14em;text-transform:uppercase;text-align:center;margin:0 0 32px">Recent commissions</h3>
+  <div style="display:flex;flex-direction:column;gap:52px">
+    <div class="example-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center">
+      <div style="aspect-ratio:4/3;overflow:hidden;background:#0A3A38">
+        <img src="uploads/caherdaniel.JPG" alt="Caherdaniel" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">
+      </div>
+      <div>
+        <span style="font-family:'Jost',sans-serif;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,255,255,0.6)">Caherdaniel, Kerry — acrylic on canvas</span>
+        <h4 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.6rem;margin:12px 0 14px">"Caherdaniel"</h4>
+        <blockquote style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;line-height:1.6;border-left:1px solid rgba(255,255,255,0.4);padding-left:20px;margin:0;max-width:46ch">"I have fallen hard for the painting Julie had you work on for me... Caherdaniel is my favourite place on planet earth, so it has already become a very important piece of art to me."</blockquote>
+        <cite style="display:block;margin-top:12px;font-style:normal;font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.55)">— Mark</cite>
+      </div>
+    </div>
+    <div class="example-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center">
+      <div style="aspect-ratio:4/3;overflow:hidden;background:#0A3A38;order:2">
+        <img src="uploads/butterfly.JPG" alt="Butterfly" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">
+      </div>
+      <div>
+        <span style="font-family:'Jost',sans-serif;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,255,255,0.6)">Butterfly — Acrylic on Canvas</span>
+        <h4 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.6rem;margin:12px 0 14px">"Butterfly"</h4>
+      </div>
+    </div>
+    <div class="example-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center">
+      <div style="aspect-ratio:4/3;overflow:hidden;background:#0A3A38">
+        <img src="uploads/straffan.JPG" alt="Straffan Workhouse" style="width:100%;height:100%;object-fit:cover;display:block" loading="lazy">
+      </div>
+      <div>
+        <span style="font-family:'Jost',sans-serif;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.2em;color:rgba(255,255,255,0.6)">Straffan Workhouse — Charcoal</span>
+        <h4 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:1.6rem;margin:12px 0 14px">"Straffan Workhouse"</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<dc-import name="Footer" hide-rule="{{ true }}" hint-size="100%,420px"></dc-import>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#0E4A47;color:#FFFFFF;font-family:'Jost',sans-serif;overflow-x:hidden}
+  a{text-decoration:none;color:#FFFFFF}
+  a:hover{color:rgba(255,255,255,0.7)}
+  ::selection{background:#FFFFFF;color:#0E4A47}
+  html{scroll-behavior:smooth}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (max-width:700px){.two-col{grid-template-columns:1fr !important}}
+  @media (max-width:800px){.latest-grid{grid-template-columns:repeat(2,1fr) !important}}
+</style>
+</helmet>
+<dc-import name="Nav" current="home" hint-size="100%,150px"></dc-import>
+
+<section style="position:relative;width:100%;height:49vh;min-height:295px;overflow:hidden;background:#0A3A38">
+  <sc-for list="{{ slides }}" as="s" hint-placeholder-count="3">
+    <img src="{{ s.img }}" alt="{{ s.alt }}" style="{{ s.style }}">
+  </sc-for>
+  <div style="position:absolute;left:0;right:0;bottom:26px;display:flex;justify-content:center;gap:10px">
+    <sc-for list="{{ dots }}" as="d" hint-placeholder-count="3">
+      <button onClick="{{ d.onClick }}" style="{{ d.style }}"></button>
+    </sc-for>
+  </div>
+</section>
+
+<div style="overflow:hidden;padding:20px 0;border-bottom:1px solid rgba(255,255,255,0.14);background:#0E4A47">
+  <div style="display:flex;width:max-content;animation:marquee 40s linear infinite;font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.75)">
+    <span style="padding-right:40px">Oils, watercolour, pen &amp; ink, pastels ✦ Painted in Howth, Co. Dublin ✦ Commissions welcome ✦ Oils, watercolour, pen &amp; ink, pastels ✦ Painted in Howth, Co. Dublin ✦ Commissions welcome ✦</span>
+    <span style="padding-right:40px">Oils, watercolour, pen &amp; ink, pastels ✦ Painted in Howth, Co. Dublin ✦ Commissions welcome ✦ Oils, watercolour, pen &amp; ink, pastels ✦ Painted in Howth, Co. Dublin ✦ Commissions welcome ✦</span>
+  </div>
+</div>
+
+<section style="padding:64px 5vw 30px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px">
+  <span style="font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.6)">Self-taught Irish artist</span>
+  <h1 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.2;max-width:26ch;margin:0;color:#FFFFFF">Every piece begins with a photo, place, or story.</h1>
+  <p style="font-family:'Jost',sans-serif;font-weight:300;max-width:60ch;font-size:1.02rem;line-height:1.8;margin:0;color:rgba(255,255,255,0.8)">Susan Kirwin works mostly in oil on canvas, alongside watercolour, pen &amp; ink, acrylic, pastels and charcoal — happy to take on any challenge, and always open to commissions.</p>
+</section>
+
+<section style="padding:40px 5vw 70px;display:flex;flex-direction:column;align-items:center;gap:34px">
+  <h2 style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(1.5rem,3vw,2.1rem);letter-spacing:0.12em;text-transform:uppercase;margin:0;color:#FFFFFF">Selected Works</h2>
+  <div class="latest-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:30px;width:100%;max-width:1300px">
+    <sc-for list="{{ latest }}" as="w" hint-placeholder-count="4">
+      <a href="Gallery.dc.html" style="display:flex;flex-direction:column;gap:14px">
+        <div style="aspect-ratio:4/5;overflow:hidden;background:#0A3A38">
+          <img src="{{ w.img }}" alt="{{ w.title }}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease" style-hover="transform:scale(1.04)" loading="lazy">
+        </div>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;text-align:center;color:#FFFFFF">{{ w.title }}</span>
+      </a>
+    </sc-for>
+  </div>
+  <a href="Gallery.dc.html" style="font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);padding:16px 34px" style-hover="background:#FFFFFF;color:#0E4A47">View the gallery</a>
+</section>
+
+<section class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(255,255,255,0.14)">
+  <div style="min-height:60vh;overflow:hidden">
+    <img src="uploads/poolbeg2.JPG" alt="Commissioned painting" style="width:100%;height:100%;object-fit:cover;display:block">
+  </div>
+  <div style="padding:80px 6vw;display:flex;flex-direction:column;align-items:flex-start;gap:22px;justify-content:center">
+    <span style="font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.6)">Commissions</span>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1.25;margin:0;max-width:22ch">A painting makes an ideal gift.</h2>
+    <p style="font-family:'Jost',sans-serif;font-weight:300;font-size:1rem;line-height:1.8;margin:0;max-width:44ch;color:rgba(255,255,255,0.8)">Weddings, birthdays, anniversaries — send a photo and we'll talk through medium, size and framing, from first sketch to finished piece.</p>
+    <a href="Commissions.dc.html" style="font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);padding:16px 34px" style-hover="background:#FFFFFF;color:#0E4A47">How it works</a>
+  </div>
+</section>
+
+<dc-import name="Quote" quote="Susan is a very talented artist with an excellent eye for light and colour. The painting is even more evocative in person and has pride of place in my living room; frequently commented upon on by visitors. It has quickly become one of my most treasured possessions." attribution="Lisa" hint-size="100%,360px"></dc-import>
+
+<dc-import name="Footer" hint-size="100%,420px"></dc-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const SLIDES = [
+  { img: 'uploads/eyeries.JPG', alt: 'Eyeries', pos: 'center 35%' },
+  { img: 'uploads/straffan.JPG', alt: 'Straffan Workhouse' },
+  { img: 'uploads/poolbeg2.JPG', alt: 'Poolbeg' },
+  { img: 'uploads/bog.JPG', alt: 'The Bog' }
+];
+const LATEST = [
+  { title: 'Eyeries', img: 'uploads/eyeries.JPG' },
+  { title: 'The Fisherman', img: 'uploads/fisherman.JPG' },
+  { title: 'Balscadden Bay', img: 'uploads/balscadden.JPG' },
+  { title: 'Golden Retriever', img: 'uploads/retriever.JPG' }
+];
+
+class Component extends DCLogic {
+  state = { active: 0 };
+  componentDidMount() {
+    this._t = setInterval(() => this.setState(s => ({ active: (s.active + 1) % SLIDES.length })), 5000);
+  }
+  componentWillUnmount() { clearInterval(this._t); }
+  renderVals() {
+    const a = this.state.active;
+    return {
+      latest: LATEST,
+      slides: SLIDES.map((s, i) => ({
+        img: s.img, alt: s.alt,
+        style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: s.pos || 'center', opacity: i === a ? 1 : 0, transition: 'opacity 1.4s ease' }
+      })),
+      dots: SLIDES.map((s, i) => ({
+        onClick: () => this.setState({ active: i }),
+        style: { width: '7px', height: '7px', borderRadius: '50%', border: 'none', cursor: 'pointer', padding: 0, background: i === a ? '#FFFFFF' : 'rgba(255,255,255,0.4)' }
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

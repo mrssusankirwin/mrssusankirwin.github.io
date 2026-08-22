@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<footer style="background:#0A3A38;color:#FFFFFF;padding:26px 5vw 36px;display:flex;flex-direction:column;align-items:center;gap:34px;text-align:center">
+  <sc-if value="{{ showRule }}" hint-placeholder-val="{{ true }}">
+    <div style="width:100%;max-width:1100px;height:1px;background:rgba(255,255,255,0.18)"></div>
+  </sc-if>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.2vw,1.5rem);line-height:1.6;max-width:46ch;margin:0;color:rgba(255,255,255,0.9)">For enquiries about a painting or a commission, please get in touch by emailing me at <a href="mailto:info@susankirwin.com" style="color:#FFFFFF;border-bottom:1px solid rgba(255,255,255,0.5)">info@susankirwin.com</a></p>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:28px;border-top:1px solid rgba(255,255,255,0.14);padding-top:26px;width:100%;max-width:1100px">
+    <span style="font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5)">© 2026 Susan Kirwin</span>
+    <span style="font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Howth, Co. Dublin, Ireland</span>
+    <a href="Contact.dc.html" style="font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5)">Contact</a>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:420}}">class Component extends DCLogic {
+  renderVals() {
+    return { showRule: this.props.hideRule !== true };
+  }
+}</script>
+</body>
+</html>

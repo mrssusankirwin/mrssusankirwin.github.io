@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<section style="background:#0A3A38;padding:52px 6vw 22px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px">
+  <sc-if value="{{ hasLabel }}" hint-placeholder-val="{{ false }}">
+    <span style="font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.55)">{{ label }}</span>
+  </sc-if>
+  <blockquote style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(1.3rem,2.8vw,2rem);line-height:1.55;max-width:34ch;margin:0;color:#FFFFFF">“{{ quote }}”</blockquote>
+  <sc-if value="{{ hasAttribution }}" hint-placeholder-val="{{ false }}">
+  <cite style="font-style:normal;font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.6)">— {{ attribution }}</cite>
+  </sc-if>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:320},&quot;label&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;quote&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;attribution&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { hasLabel: !!this.props.label, hasAttribution: !!this.props.attribution };
+  }
+}
+</script>
+</body>
+</html>
