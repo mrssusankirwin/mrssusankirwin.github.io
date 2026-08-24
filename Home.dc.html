@@ -24,7 +24,7 @@
 </helmet>
 <dc-import name="Nav" current="home" hint-size="100%,150px"></dc-import>
 
-<section style="position:relative;width:100%;height:49vh;min-height:295px;overflow:hidden;background:#0A3A38">
+<section style="position:relative;width:100%;height:49vh;min-height:295px;overflow:hidden;background:#0A3A38;touch-action:pan-y" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onTouchEnd }}">
   <sc-for list="{{ slides }}" as="s" hint-placeholder-count="3">
     <img src="{{ s.img }}" alt="{{ s.alt }}" style="{{ s.style }}">
   </sc-for>
@@ -99,10 +99,22 @@ class Component extends DCLogic {
     this._t = setInterval(() => this.setState(s => ({ active: (s.active + 1) % SLIDES.length })), 5000);
   }
   componentWillUnmount() { clearInterval(this._t); }
+  go(dir) {
+    clearInterval(this._t);
+    this.setState(s => ({ active: (s.active + dir + SLIDES.length) % SLIDES.length }));
+    this._t = setInterval(() => this.setState(s => ({ active: (s.active + 1) % SLIDES.length })), 5000);
+  }
   renderVals() {
     const a = this.state.active;
     return {
       latest: LATEST,
+      onTouchStart: (e) => { this._x = e.touches[0].clientX; },
+      onTouchEnd: (e) => {
+        if (this._x == null) return;
+        const dx = e.changedTouches[0].clientX - this._x;
+        this._x = null;
+        if (Math.abs(dx) > 40) this.go(dx < 0 ? 1 : -1);
+      },
       slides: SLIDES.map((s, i) => ({
         img: s.img, alt: s.alt,
         style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: s.pos || 'center', opacity: i === a ? 1 : 0, transition: 'opacity 1.4s ease' }
