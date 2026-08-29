@@ -9,7 +9,7 @@
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&amp;family=Jost:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   body{margin:0;background:#0E4A47;color:#FFFFFF;font-family:'Jost',sans-serif;overflow-x:hidden}
   a{text-decoration:none;color:#FFFFFF}
@@ -23,7 +23,7 @@
 </helmet>
 <dc-import name="Nav" current="gallery" hint-size="100%,150px"></dc-import>
 
-<section style="padding:58px 5vw 28px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px">
+<section style="padding:58px 5vw 34px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px">
   <span style="font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.6)">Selected Works</span>
   <h1 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2rem,4.6vw,3.2rem);letter-spacing:0.06em;margin:0">Gallery</h1>
   <p style="font-family:'Jost',sans-serif;font-weight:300;max-width:62ch;font-size:1rem;line-height:1.8;margin:0;color:rgba(255,255,255,0.8)">These are some of the paintings I have created over the years. If you're interested in a particular painting, please get in touch or see <a href="Commissions.dc.html" style="border-bottom:1px solid rgba(255,255,255,0.5)"><b>Commissions</b></a> for a piece made just for you.</p>
@@ -35,17 +35,24 @@
   </sc-for>
 </div>
 
-<div style="padding:0 5vw 66px;display:grid;grid-template-columns:repeat(12,1fr);gap:34px">
+<div style="padding:0 5vw 40px;display:grid;grid-template-columns:repeat(12,1fr);gap:34px">
   <sc-for list="{{ works }}" as="w" hint-placeholder-count="8">
     <div class="piece-item" style="{{ w.wrapStyle }}" onClick="{{ w.onClick }}">
       <div style="aspect-ratio:4/5;overflow:hidden;background:#0A3A38">
-        <img src="{{ w.img }}" alt="{{ w.title }}" style="{{ w.imgStyle }}" style-hover="transform:scale(1.18)" loading="lazy">
+        <img src="{{ w.img }}" alt="{{ w.title }}" style="{{ w.imgStyle }}" style-hover="transform:scale(1.05)" loading="lazy">
       </div>
       <div style="margin-top:14px;text-align:center">
         <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem">{{ w.title }}</span>
       </div>
     </div>
   </sc-for>
+</div>
+
+<div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:0 5vw 56px">
+  <span style="font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.55)">{{ countLabel }}</span>
+  <sc-if value="{{ hasMore }}" hint-placeholder-val="{{ true }}">
+    <button onClick="{{ loadMore }}" style="font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);background:none;padding:16px 34px;cursor:pointer" style-hover="background:#FFFFFF;color:#0E4A47">Show more</button>
+  </sc-if>
 </div>
 
 <dc-import name="Quote" quote="When our little dog passed away at almost 19 years, we were devastated. While we had tons of photos we wanted something special to remember him by. We commissioned Susan to do a portrait of him from a photo and we were so happy at how well she captured his expression that we subsequently asked her to do portraits of our current two dogs. We are delighted with our 3 gorgeous portraits." attribution="Caroline" hint-size="100%,360px"></dc-import>
@@ -66,69 +73,109 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 const WORKS = [
-  { title: "Kenya", category: "other", img: "uploads/kenya.JPG" },
-  { title: "Eyeries", category: "landscape", img: "uploads/eyeries.JPG" },
-  { title: "Poolbeg", category: "landscape", img: "uploads/poolbeg2.JPG" },
-  { title: "Samuel Beckett Bridge", category: "landscape", img: "uploads/beckett.JPG" },
-  { title: "Crab", category: "other", img: "uploads/crab.JPG" },
-  { title: "The Armchair", category: "other", img: "uploads/chair.JPG" },
-  { title: "The Getaway", category: "other", img: "uploads/wedding2.JPG" },
-  { title: "The Golfer", category: "other", img: "uploads/golfer.JPG" },
-  { title: "Lahinch", category: "landscape", img: "uploads/lahinch.JPG" },
-  { title: "The Bog", category: "landscape", img: "uploads/bog.JPG" },
-  { title: "Clontarf", category: "landscape", img: "uploads/clontarf.JPG" },
-  { title: "Howth Lighthouse", category: "landscape", img: "uploads/lighthouse.JPG" },
-  { title: "The Burrow, Sutton\n", category: "landscape", img: "uploads/burrow3.JPG" },
-  { title: "Balscadden Bay\n", category: "landscape", img: "uploads/balslcadden2.JPG" },
-  { title: "Boys on the Beach", category: "portrait", img: "uploads/boys-beach.JPG" },
-  { title: "The Yacht Club", category: "landscape", img: "uploads/yaught-club.JPG" },
-  { title: "Howth Harbour", category: "landscape", img: "uploads/howth-harbour.JPG" },
-  { title: "Dungarvan", category: "landscape", img: "uploads/dungarvan.JPG" },
-  { title: "Straffan Workhouse", category: "other", img: "uploads/straffan.JPG" },
-  { title: "Poolbeg Chimneys", category: "landscape", img: "uploads/poolbeg.JPG", zoom: 1.4 },
-  { title: "Cat Study", category: "pets", img: "uploads/cat.JPG" },
-  { title: "Golden Retriever", category: "pets", img: "uploads/retriever.JPG" },
-  { title: "Caherdaniel", category: "landscape", img: "uploads/caherdaniel.JPG" },
-  { title: "Kasey", category: "pets", img: "uploads/daschund.JPG" },
-  { title: "The Boat", category: "other", img: "uploads/boat.JPG" },
+  { title: "Howth Lighthouse", category: "landscape", img: "uploads/Howth Lighthouse.png" },
   { title: "Kasey", category: "pets", img: "uploads/spaniel.JPG", zoom: 1.14 },
-  { title: "Balscadden Bay", category: "landscape", img: "uploads/balscadden.JPG" },
-  { title: "Meadowe", category: "pets", img: "uploads/retriever2.JPG" },
-  { title: "The Fisherman", category: "portrait", img: "uploads/fisherman.JPG" },
-  { title: "By the Lighthouse", category: "portrait", img: "uploads/lighthouse-couple.JPG" },
-  { title: "Wedding Day", category: "portrait", img: "uploads/wedding.JPG" },
-  { title: "Spaniel Study II", category: "pets", img: "uploads/spaniel2.JPG" },
-  { title: "Irelands Eye", category: "landscape", img: "uploads/burrow.JPG" },
-  { title: "Howth", category: "landscape", img: "uploads/howth-house2.JPG" },
-  { title: "Butterfly", category: "other", img: "uploads/butterfly.JPG" },
-  { title: "The Queen's", category: "landscape", img: "uploads/queens.JPG" },
-  { title: "View to the Eye", category: "landscape", img: "uploads/burrow2.JPG" },
-  { title: "Howth", category: "landscape", img: "uploads/howth-house.JPG" },
-  { title: "Robin", category: "other", img: "uploads/robin.JPG" },
-  { title: "Susie", category: "pets", img: "uploads/Susie.png" },
+  { title: "Cliff Walk", category: "landscape", img: "uploads/Cliff Walk.png" },
+  { title: "Eyeries", category: "landscape", img: "uploads/eyeries.JPG" },
+  { title: "Joseph", category: "portrait", img: "uploads/Joseph.png" },
+  { title: "Howth Harbour", category: "landscape", img: "uploads/howth-harbour.JPG" },
+  { title: "Robin 2", category: "nature", img: "uploads/robin 2.png" },
   { title: "Freddie", category: "pets", img: "uploads/Freddie.png" },
-  { title: "Sam", category: "pets", img: "uploads/Sam.png" },
+  { title: "Italian Street", category: "landscape", img: "uploads/Italian Street.png" },
+  { title: "Balscadden Bay", category: "landscape", img: "uploads/balscadden.JPG" },
+  { title: "Bee", category: "nature", img: "uploads/Bee.png" },
+  { title: "The Fisherman", category: "portrait", img: "uploads/fisherman.JPG" },
+  { title: "Bailey Lighthouse", category: "landscape", img: "uploads/Bailey Lighthouse.png" },
+  { title: "Maisie and Floss", category: "pets", img: "uploads/MaisieandFloss.png" },
+  { title: "Poolbeg", category: "landscape", img: "uploads/poolbeg2.JPG" },
+  { title: "Moore Street", category: "landscape", img: "uploads/Moore Street.png" },
+  { title: "Cliff Walk Autumn", category: "landscape", img: "uploads/Cliff Walk Autumn.png" },
   { title: "Ziggy", category: "pets", img: "uploads/Ziggy.png" },
+  { title: "The Burrow I", category: "landscape", img: "uploads/burrow3.JPG" },
+  { title: "Dublin City", category: "landscape", img: "uploads/Dublin City.png" },
+  { title: "Bluey", category: "nature", img: "uploads/Bluey.png" },
+  { title: "Straffan Workhouse", category: "other", img: "uploads/straffan.JPG" },
+  { title: "Howth Boats", category: "landscape", img: "uploads/Howth Boats.png" },
   { title: "Maya", category: "pets", img: "uploads/Maya.png" },
+  { title: "Samuel Beckett Bridge", category: "landscape", img: "uploads/beckett.JPG" },
+  { title: "Shells", category: "landscape", img: "uploads/Shells.png" },
+  { title: "Yacht Club", category: "landscape", img: "uploads/Yacht Club.png" },
+  { title: "Butterfly", category: "nature", img: "uploads/butterfly.JPG" },
+  { title: "Bailey Howth", category: "landscape", img: "uploads/Bailey Howth.png" },
+  { title: "Susie", category: "pets", img: "uploads/Susie.png" },
+  { title: "Lahinch", category: "landscape", img: "uploads/lahinch.JPG" },
+  { title: "Tricky", category: "other", img: "uploads/Tricky.png" },
+  { title: "Howth Sunset", category: "landscape", img: "uploads/Howth Sunset.png" },
+  { title: "The Boys on the Beach", category: "portrait", img: "uploads/boys-beach.JPG" },
+  { title: "RNLI", category: "landscape", img: "uploads/RNLI.png" },
   { title: "Misty", category: "pets", img: "uploads/Misty.png" },
+  { title: "Clontarf", category: "landscape", img: "uploads/Clontarf.png" },
+  { title: "Eye Study", category: "landscape", img: "uploads/Eye Study.png" },
+  { title: "The Bog", category: "landscape", img: "uploads/bog.JPG" },
+  { title: "Happy Feet", category: "nature", img: "uploads/Happy Feet.png" },
+  { title: "Harbour", category: "landscape", img: "uploads/Harbour.png" },
+  { title: "Sam", category: "pets", img: "uploads/Sam.png" },
+  { title: "Cliff Walk 2", category: "landscape", img: "uploads/Cliff Walk 2.png" },
+  { title: "Wedding Day", category: "portrait", img: "uploads/wedding.JPG" },
+  { title: "Lighthouse at Night", category: "landscape", img: "uploads/Lighthouse at Night.png" },
+  { title: "Ollifont", category: "other", img: "uploads/Ollifont.png" },
+  { title: "Balbriggan", category: "landscape", img: "uploads/Balbriggan.png" },
   { title: "Lilly", category: "pets", img: "uploads/Lilly.png" },
-  { title: "Maisie and Floss", category: "pets", img: "uploads/MaisieandFloss.png" }
+  { title: "Trinity Arch", category: "landscape", img: "uploads/Trinity Arch.png" },
+  { title: "Caherdaniel", category: "landscape", img: "uploads/caherdaniel.JPG" },
+  { title: "Steve", category: "other", img: "uploads/Steve.png" },
+  { title: "Harbour View", category: "landscape", img: "uploads/Harbour View.png" },
+  { title: "Golden Retriever", category: "pets", img: "uploads/retriever.JPG" },
+  { title: "Bailey", category: "landscape", img: "uploads/Bailey.png" },
+  { title: "Kenya", category: "other", img: "uploads/kenya.JPG" },
+  { title: "Sheltered", category: "landscape", img: "uploads/Sheltered.png" },
+  { title: "Meadowe", category: "pets", img: "uploads/retriever2.JPG" },
+  { title: "Lifebuoy", category: "landscape", img: "uploads/Lifebuoy.png" },
+  { title: "The Armchair", category: "other", img: "uploads/chair.JPG" },
+  { title: "Towers", category: "landscape", img: "uploads/Towers.png" },
+  { title: "By the Lighthouse", category: "portrait", img: "uploads/lighthouse-couple.JPG" },
+  { title: "The Big House", category: "landscape", img: "uploads/The Big House.png" },
+  { title: "Cat Study", category: "pets", img: "uploads/cat.JPG" },
+  { title: "Howth Pier", category: "landscape", img: "uploads/Howth pier.png" },
+  { title: "Dungarvan", category: "landscape", img: "uploads/dungarvan.JPG" },
+  { title: "Bailey Study", category: "landscape", img: "uploads/Bailey study.png" },
+  { title: "The Getaway", category: "other", img: "uploads/wedding2.JPG" },
+  { title: "House in Oils", category: "landscape", img: "uploads/House oils.png" },
+  { title: "The Golfer", category: "other", img: "uploads/golfer.JPG" },
+  { title: "Balscadden 2", category: "landscape", img: "uploads/Balscadden 2.png" },
+  { title: "Kasey II", category: "pets", img: "uploads/daschund.JPG" },
+  { title: "Pier — Acrylic", category: "landscape", img: "uploads/Pier -Acrylic.png" },
+  { title: "Crab", category: "nature", img: "uploads/crab.JPG" },
+  { title: "Garda", category: "landscape", img: "uploads/Garda.png" },
+  { title: "The Burrow II", category: "landscape", img: "uploads/burrow.JPG" },
+  { title: "Just the One", category: "other", img: "uploads/Just the one.png" },
+  { title: "The Queen's", category: "landscape", img: "uploads/queens.JPG" },
+  { title: "Howth House I", category: "landscape", img: "uploads/howth-house.JPG" },
+  { title: "The Boat", category: "other", img: "uploads/boat.JPG" },
+  { title: "Howth House II", category: "landscape", img: "uploads/howth-house2.JPG" },
+  { title: "The Burrow III", category: "landscape", img: "uploads/burrow2.JPG" },
+  { title: "Poolbeg Chimneys", category: "landscape", img: "uploads/poolbeg.JPG", zoom: 1.24 },
+  { title: "Balscadden Bay II", category: "landscape", img: "uploads/balslcadden2.JPG" },
+  { title: "Spaniel Study II", category: "pets", img: "uploads/spaniel2.JPG" },
+  { title: "Robin", category: "nature", img: "uploads/robin.JPG" }
 ];
 const FILTERS = [
   { key: 'all', label: 'All' },
   { key: 'landscape', label: 'Landscapes' },
   { key: 'portrait', label: 'Life Drawing & Portraits' },
   { key: 'pets', label: 'Pets' },
+  { key: 'nature', label: 'Nature' },
   { key: 'other', label: 'Other' }
 ];
+const PAGE = 24;
 
 class Component extends DCLogic {
-  state = { filter: 'all', lightboxWork: null };
+  state = { filter: 'all', lightboxWork: null, shown: PAGE };
   visibleWorks() {
     return WORKS.filter(w => this.state.filter === 'all' || w.category === this.state.filter);
   }
   step(dir) {
-    const list = this.visibleWorks();
+    const list = this.visibleWorks().slice(0, this.state.shown);
     const i = list.findIndex(w => w.img === (this.state.lightboxWork || {}).img);
     if (i === -1) return;
     this.setState({ lightboxWork: list[(i + dir + list.length) % list.length] });
@@ -146,22 +193,27 @@ class Component extends DCLogic {
   renderVals() {
     const base = { background: 'none', border: '1px solid rgba(255,255,255,0.35)', borderRadius: '0', padding: '10px 20px', fontFamily: "'Jost', sans-serif", fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', cursor: 'pointer', color: 'rgba(255,255,255,0.8)' };
     const on = { background: '#FFFFFF', color: '#0E4A47', border: '1px solid #FFFFFF' };
+    const visible = this.visibleWorks();
+    const shown = Math.min(this.state.shown, visible.length);
+    const shownSet = new Set(visible.slice(0, shown).map(w => w.img));
     return {
       filters: FILTERS.map(f => ({
         label: f.label,
         style: this.state.filter === f.key ? { ...base, ...on } : base,
-        onClick: () => this.setState({ filter: f.key })
+        onClick: () => this.setState({ filter: f.key, shown: PAGE })
       })),
       works: WORKS.map(w => {
-        const visible = this.state.filter === 'all' || w.category === this.state.filter;
         const zoom = w.zoom || 1;
         return {
           ...w,
-          wrapStyle: { cursor: 'pointer', display: visible ? 'block' : 'none' },
+          wrapStyle: { cursor: 'pointer', display: shownSet.has(w.img) ? 'block' : 'none' },
           imgStyle: { width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform .8s ease', transform: 'scale(' + zoom + ')' },
           onClick: () => this.setState({ lightboxWork: w })
         };
       }),
+      countLabel: 'Showing ' + shown + ' of ' + visible.length,
+      hasMore: shown < visible.length,
+      loadMore: () => this.setState(s => ({ shown: s.shown + PAGE })),
       lightboxOpen: !!this.state.lightboxWork,
       lightboxWork: this.state.lightboxWork || {},
       prevStyle: { position: 'absolute', left: '2vw', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#FFFFFF', fontSize: '2.6rem', lineHeight: 1, padding: '10px 18px' },
