@@ -51,6 +51,12 @@
           <textarea required="{{ true }}" placeholder="Tell me about the piece or commission you have in mind..." value="{{ message }}" onChange="{{ onMessageChange }}" style="width:100%;border:none;border-bottom:1px solid rgba(255,255,255,0.4);background:transparent;padding:10px 2px;font-family:'Jost',sans-serif;font-size:1rem;color:#FFFFFF;resize:vertical;min-height:110px;outline:none"></textarea>
         </div>
         <button type="submit" style="font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:#0E4A47;background:#FFFFFF;padding:16px 34px;border:none;cursor:pointer" style-hover="background:rgba(255,255,255,0.85)">Send enquiry</button>
+        <sc-if value="{{ sending }}" hint-placeholder-val="{{ false }}">
+          <span style="font-family:'Jost',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.7)">Sending…</span>
+        </sc-if>
+        <sc-if value="{{ errorMsg }}" hint-placeholder-val="{{ false }}">
+          <span style="font-family:'Jost',sans-serif;font-size:0.8rem;color:#FFD9C0">{{ errorMsg }}</span>
+        </sc-if>
       </form>
     </sc-if>
     <div style="display:flex;flex-direction:column;gap:34px">
@@ -82,7 +88,20 @@ class Component extends DCLogic {
       onNameChange: (e) => this.setState({ name: e.target.value }),
       onEmailChange: (e) => this.setState({ email: e.target.value }),
       onMessageChange: (e) => this.setState({ message: e.target.value }),
-      onSubmit: (e) => { e.preventDefault(); this.setState({ submitted: true }); }
+      sending: this.state.sending,
+      errorMsg: this.state.errorMsg,
+      onSubmit: (e) => {
+        e.preventDefault();
+        this.setState({ sending: true, errorMsg: '' });
+        fetch('https://formspree.io/f/maeynblb', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: this.state.name, email: this.state.email, message: this.state.message })
+        })
+          .then(r => r.ok ? this.setState({ submitted: true, sending: false })
+                          : this.setState({ sending: false, errorMsg: 'Something went wrong. Please email me directly.' }))
+          .catch(() => this.setState({ sending: false, errorMsg: 'Something went wrong. Please email me directly.' }));
+      }
     };
   }
 }
