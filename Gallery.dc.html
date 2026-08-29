@@ -50,9 +50,14 @@
 
 <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:0 5vw 56px">
   <span style="font-family:'Jost',sans-serif;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.55)">{{ countLabel }}</span>
-  <sc-if value="{{ hasMore }}" hint-placeholder-val="{{ true }}">
-    <button onClick="{{ loadMore }}" style="font-family:'Jost',sans-serif;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:#FFFFFF;border:1px solid rgba(255,255,255,0.5);background:none;padding:16px 34px;cursor:pointer" style-hover="background:#FFFFFF;color:#0E4A47">Show more</button>
-  </sc-if>
+  <div style="display:flex;gap:14px">
+    <sc-if value="{{ hasPrevPage }}" hint-placeholder-val="{{ true }}">
+      <button onClick="{{ prevPage }}" style="{{ pageBtnStyle }}" style-hover="background:#FFFFFF;color:#0E4A47">← Previous</button>
+    </sc-if>
+    <sc-if value="{{ hasNextPage }}" hint-placeholder-val="{{ true }}">
+      <button onClick="{{ nextPage }}" style="{{ pageBtnStyle }}" style-hover="background:#FFFFFF;color:#0E4A47">Next →</button>
+    </sc-if>
+  </div>
 </div>
 
 <dc-import name="Quote" quote="When our little dog passed away at almost 19 years, we were devastated. While we had tons of photos we wanted something special to remember him by. We commissioned Susan to do a portrait of him from a photo and we were so happy at how well she captured his expression that we subsequently asked her to do portraits of our current two dogs. We are delighted with our 3 gorgeous portraits." attribution="Caroline" hint-size="100%,360px"></dc-import>
@@ -167,15 +172,17 @@ const FILTERS = [
   { key: 'nature', label: 'Nature' },
   { key: 'other', label: 'Other' }
 ];
-const PAGE = 24;
+const PAGE = 15;
 
 class Component extends DCLogic {
-  state = { filter: 'all', lightboxWork: null, shown: PAGE };
+  state = { filter: 'all', lightboxWork: null, page: 0 };
   visibleWorks() {
     return WORKS.filter(w => this.state.filter === 'all' || w.category === this.state.filter);
   }
   step(dir) {
-    const list = this.visibleWorks().slice(0, this.state.shown);
+    const v = this.visibleWorks();
+    const st = this.state.page * PAGE;
+    const list = v.slice(st, st + PAGE);
     const i = list.findIndex(w => w.img === (this.state.lightboxWork || {}).img);
     if (i === -1) return;
     this.setState({ lightboxWork: list[(i + dir + list.length) % list.length] });
@@ -194,13 +201,16 @@ class Component extends DCLogic {
     const base = { background: 'none', border: '1px solid rgba(255,255,255,0.35)', borderRadius: '0', padding: '10px 20px', fontFamily: "'Jost', sans-serif", fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', cursor: 'pointer', color: 'rgba(255,255,255,0.8)' };
     const on = { background: '#FFFFFF', color: '#0E4A47', border: '1px solid #FFFFFF' };
     const visible = this.visibleWorks();
-    const shown = Math.min(this.state.shown, visible.length);
-    const shownSet = new Set(visible.slice(0, shown).map(w => w.img));
+    const pages = Math.max(1, Math.ceil(visible.length / PAGE));
+    const page = Math.min(this.state.page, pages - 1);
+    const start = page * PAGE;
+    const slice = visible.slice(start, start + PAGE);
+    const shownSet = new Set(slice.map(w => w.img));
     return {
       filters: FILTERS.map(f => ({
         label: f.label,
         style: this.state.filter === f.key ? { ...base, ...on } : base,
-        onClick: () => this.setState({ filter: f.key, shown: PAGE })
+        onClick: () => this.setState({ filter: f.key, page: 0 })
       })),
       works: WORKS.map(w => {
         const zoom = w.zoom || 1;
@@ -211,9 +221,12 @@ class Component extends DCLogic {
           onClick: () => this.setState({ lightboxWork: w })
         };
       }),
-      countLabel: 'Showing ' + shown + ' of ' + visible.length,
-      hasMore: shown < visible.length,
-      loadMore: () => this.setState(s => ({ shown: s.shown + PAGE })),
+      countLabel: (start + 1) + '–' + (start + slice.length) + ' of ' + visible.length,
+      hasPrevPage: page > 0,
+      hasNextPage: page < pages - 1,
+      prevPage: () => this.setState({ page: page - 1 }),
+      nextPage: () => this.setState({ page: page + 1 }),
+      pageBtnStyle: { fontFamily: "'Jost',sans-serif", fontSize: '0.72rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.5)', background: 'none', padding: '14px 30px', cursor: 'pointer' },
       lightboxOpen: !!this.state.lightboxWork,
       lightboxWork: this.state.lightboxWork || {},
       prevStyle: { position: 'absolute', left: '2vw', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#FFFFFF', fontSize: '2.6rem', lineHeight: 1, padding: '10px 18px' },
