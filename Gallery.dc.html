@@ -34,7 +34,7 @@
   </sc-if>
 </section>
 
-<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding:14px 5vw 34px">
+<div ref="{{ topRef }}" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding:14px 5vw 34px">
   <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
     <button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}</button>
   </sc-for>
@@ -148,7 +148,7 @@ const WORKS = [
   { title: "Ballerina", category: "portrait", img: "uploads/Ballerina.png" },
   { title: "Steve", category: "other", img: "uploads/Steve.png" },
   { title: "Harbour View", category: "landscape", img: "uploads/Harbour View.png" },
-  { title: "Golden Retriever", category: "pets", img: "uploads/retriever.JPG" },
+  { title: "Teddy", category: "pets", img: "uploads/retriever.JPG" },
   { title: "The Bailey", category: "landscape", img: "uploads/Bailey.png", forSale: true, saleInfo: "€90 · Oil · 25×25cm incl. frame" },
   { title: "Kenya", category: "other", img: "uploads/kenya.JPG" },
   { title: "Sheltered", category: "landscape", img: "uploads/Sheltered.png" },
@@ -159,7 +159,7 @@ const WORKS = [
   { title: "Molly", category: "pets", img: "uploads/Molly.png" },
   { title: "By the Lighthouse", category: "portrait", img: "uploads/lighthouse-couple.JPG" },
   { title: "The Big House", category: "landscape", img: "uploads/The Big House.png" },
-  { title: "Cat Study", category: "pets", img: "uploads/cat.JPG" },
+  { title: "Skippy", category: "pets", img: "uploads/cat.JPG" },
   { title: "Howth Pier", category: "landscape", img: "uploads/Howth pier.png" },
   { title: "Dungarvan", category: "landscape", img: "uploads/dungarvan.JPG" },
   { title: "Bailey Study", category: "landscape", img: "uploads/Bailey study.png" },
@@ -167,7 +167,7 @@ const WORKS = [
   { title: "House in Oils", category: "landscape", img: "uploads/House oils.png" },
   { title: "The Golfer", category: "other", img: "uploads/golfer.JPG" },
   { title: "Balscadden 2", category: "landscape", img: "uploads/Balscadden 2.png" },
-  { title: "Kasey II", category: "pets", img: "uploads/daschund.JPG" },
+  { title: "Kasey", category: "pets", img: "uploads/daschund.JPG" },
   { title: "Pier — Acrylic", category: "landscape", img: "uploads/Pier -Acrylic.png" },
   { title: "Crab", category: "nature", img: "uploads/crab.JPG" },
   { title: "Garda", category: "landscape", img: "uploads/Garda.png" },
@@ -196,6 +196,20 @@ const PAGE = 15;
 
 class Component extends DCLogic {
   state = { filter: 'all', lightboxWork: null, page: 0 };
+  topRef = React.createRef();
+  toTop() {
+    const el = this.topRef.current;
+    if (!el) return;
+    const target = el.getBoundingClientRect().top + window.scrollY - 10;
+    const start = window.scrollY, dist = target - start, dur = 350, t0 = performance.now();
+    const ease = t => 1 - Math.pow(1 - t, 3);
+    const tick = now => {
+      const p = Math.min(1, (now - t0) / dur);
+      window.scrollTo(0, start + dist * ease(p));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
   visibleWorks() {
     return WORKS.filter(w => this.state.filter === 'all' || w.category === this.state.filter || (this.state.filter === 'forsale' && w.forSale));
   }
@@ -253,8 +267,9 @@ class Component extends DCLogic {
       countLabel: (start + 1) + '–' + (start + slice.length) + ' of ' + visible.length,
       hasPrevPage: page > 0,
       hasNextPage: page < pages - 1,
-      prevPage: () => this.setState({ page: page - 1 }),
-      nextPage: () => this.setState({ page: page + 1 }),
+      topRef: this.topRef,
+      prevPage: () => { this.setState({ page: page - 1 }); this.toTop(); },
+      nextPage: () => { this.setState({ page: page + 1 }); this.toTop(); },
       pageBtnStyle: { fontFamily: "'Jost',sans-serif", fontSize: '0.72rem', letterSpacing: '0.22em', textTransform: 'uppercase', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.5)', background: 'none', padding: '14px 30px', cursor: 'pointer' },
       lightboxOpen: !!this.state.lightboxWork,
       lightboxWork: this.state.lightboxWork || {},
