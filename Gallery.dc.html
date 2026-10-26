@@ -26,7 +26,12 @@
 <section style="padding:58px 5vw 34px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px">
   <span style="font-family:'Jost',sans-serif;font-size:0.7rem;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.6)">Selected Works</span>
   <h1 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(2rem,4.6vw,3.2rem);letter-spacing:0.06em;margin:0">Gallery</h1>
+  <sc-if value="{{ isForSale }}" hint-placeholder-val="{{ false }}">
+    <p style="font-family:'Jost',sans-serif;font-weight:300;max-width:62ch;font-size:1rem;line-height:1.8;margin:0;color:rgba(255,255,255,0.8)">These paintings are available to buy now. I can also paint any subject you see elsewhere in the gallery. Just drop me an email or use the <a href="Contact.dc.html" style="border-bottom:1px solid rgba(255,255,255,0.5)"><b>contact form</b></a> to find out more.</p>
+  </sc-if>
+  <sc-if value="{{ notForSale }}" hint-placeholder-val="{{ true }}">
   <p style="font-family:'Jost',sans-serif;font-weight:300;max-width:62ch;font-size:1rem;line-height:1.8;margin:0;color:rgba(255,255,255,0.8)">These are some of the paintings I have created over the years. If you're interested in a particular painting, please get in touch or see <a href="Commissions.dc.html" style="border-bottom:1px solid rgba(255,255,255,0.5)"><b>Commissions</b></a> for a piece made just for you.</p>
+  </sc-if>
 </section>
 
 <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;padding:14px 5vw 34px">
@@ -43,6 +48,10 @@
       </div>
       <div style="margin-top:14px;text-align:center">
         <span style="font-family:'Cormorant Garamond',serif;font-size:1.1rem">{{ w.title }}</span>
+        <sc-if value="{{ w.forSale }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:4px;font-family:'Jost',sans-serif;font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.7)">For sale</div>
+          <div style="margin-top:4px;font-family:'Jost',sans-serif;font-size:0.8rem;font-weight:300;color:rgba(255,255,255,0.85)">{{ w.saleInfo }}</div>
+        </sc-if>
       </div>
     </div>
   </sc-for>
@@ -72,6 +81,7 @@
     <button onClick="{{ showNext }}" aria-label="Next" style="{{ nextStyle }}" style-hover="opacity:0.6">›</button>
     <div style="position:absolute;bottom:6vh;left:0;right:0;text-align:center">
       <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:#FFFFFF">{{ lightboxWork.title }}</div>
+      <div style="margin-top:6px;font-family:'Jost',sans-serif;font-size:0.85rem;font-weight:300;color:rgba(255,255,255,0.85)">{{ lightboxWork.saleInfo }}</div>
     </div>
   </div>
 </sc-if>
@@ -83,12 +93,15 @@ const WORKS = [
   { title: "Cliff Walk", category: "landscape", img: "uploads/Cliff Walk.png" },
   { title: "Eyeries", category: "landscape", img: "uploads/eyeries.JPG" },
   { title: "Joseph", category: "portrait", img: "uploads/Joseph.png" },
+  { title: "Haystacks", category: "landscape", img: "uploads/Haystacks.JPG", forSale: true, saleInfo: "€150 · Oil · 10″×8″, frame not included" },
   { title: "Howth Harbour", category: "landscape", img: "uploads/howth-harbour.JPG" },
   { title: "Robin 2", category: "nature", img: "uploads/Robin 2.png" },
   { title: "Freddie", category: "pets", img: "uploads/Freddie.png" },
   { title: "Italian Street", category: "landscape", img: "uploads/Italian Street.png" },
+  { title: "Cody", category: "pets", img: "uploads/Cody.png" },
   { title: "Balscadden Bay", category: "landscape", img: "uploads/balscadden.JPG" },
   { title: "Bee", category: "nature", img: "uploads/Bee.png" },
+  { title: "Gorse", category: "nature", img: "uploads/Gorse.JPG" },
   { title: "The Fisherman", category: "portrait", img: "uploads/fisherman.JPG" },
   { title: "Bailey Lighthouse", category: "landscape", img: "uploads/Bailey Lighthouse.png" },
   { title: "Maisie and Floss", category: "pets", img: "uploads/MaisieandFloss.png" },
@@ -98,11 +111,13 @@ const WORKS = [
   { title: "Ziggy", category: "pets", img: "uploads/Ziggy.png" },
   { title: "The Burrow I", category: "landscape", img: "uploads/burrow3.JPG" },
   { title: "Dublin City", category: "landscape", img: "uploads/Dublin City.png" },
+  { title: "Lobster", category: "nature", img: "uploads/Lobster.png", forSale: true, saleInfo: "€90 · Acrylic · 25×25cm incl. frame" },
   { title: "Bluey", category: "nature", img: "uploads/Bluey.png" },
   { title: "Straffan Workhouse", category: "other", img: "uploads/straffan.JPG" },
   { title: "Howth Boats", category: "landscape", img: "uploads/Howth Boats.png" },
   { title: "Maya", category: "pets", img: "uploads/Maya.png" },
   { title: "Samuel Beckett Bridge", category: "landscape", img: "uploads/beckett.JPG" },
+  { title: "Samuel Beckett", category: "portrait", img: "uploads/Beckett.png" },
   { title: "Shells", category: "landscape", img: "uploads/Shells.png" },
   { title: "Yacht Club", category: "landscape", img: "uploads/Yacht Club.png" },
   { title: "Butterfly", category: "nature", img: "uploads/butterfly.JPG" },
@@ -110,11 +125,13 @@ const WORKS = [
   { title: "Susie", category: "pets", img: "uploads/Susie.png" },
   { title: "Lahinch", category: "landscape", img: "uploads/lahinch.JPG" },
   { title: "Tricky", category: "other", img: "uploads/Tricky.png" },
-  { title: "Howth Sunset", category: "landscape", img: "uploads/Howth Sunset.png" },
+  { title: "Howth Sunset", category: "landscape", img: "uploads/Howth Sunset.png", forSale: true, saleInfo: "€150 · Watercolour · 28×12cm, frame not included" },
   { title: "The Boys on the Beach", category: "portrait", img: "uploads/boys-beach.JPG" },
   { title: "RNLI", category: "landscape", img: "uploads/RNLI.png" },
   { title: "Misty", category: "pets", img: "uploads/Misty.png" },
+  { title: "Fish", category: "nature", img: "uploads/Fish.png", forSale: true, saleInfo: "€90 · Acrylic · 25×25cm incl. frame" },
   { title: "Clontarf", category: "landscape", img: "uploads/Clontarf.png" },
+  { title: "Sutton Martello Tower", category: "landscape", img: "uploads/Martello.png", forSale: true, saleInfo: "€90 · Oil · 25×25cm incl. frame" },
   { title: "Eye Study", category: "landscape", img: "uploads/Eye Study.png" },
   { title: "The Bog", category: "landscape", img: "uploads/bog.JPG" },
   { title: "Happy Feet", category: "nature", img: "uploads/Happy Feet.png" },
@@ -128,16 +145,18 @@ const WORKS = [
   { title: "Lilly", category: "pets", img: "uploads/Lilly.png" },
   { title: "Trinity Arch", category: "landscape", img: "uploads/Trinity Arch.png" },
   { title: "Caherdaniel", category: "landscape", img: "uploads/caherdaniel.JPG" },
+  { title: "Ballerina", category: "portrait", img: "uploads/Ballerina.png" },
   { title: "Steve", category: "other", img: "uploads/Steve.png" },
   { title: "Harbour View", category: "landscape", img: "uploads/Harbour View.png" },
   { title: "Golden Retriever", category: "pets", img: "uploads/retriever.JPG" },
-  { title: "Bailey", category: "landscape", img: "uploads/Bailey.png" },
+  { title: "The Bailey", category: "landscape", img: "uploads/Bailey.png", forSale: true, saleInfo: "€90 · Oil · 25×25cm incl. frame" },
   { title: "Kenya", category: "other", img: "uploads/kenya.JPG" },
   { title: "Sheltered", category: "landscape", img: "uploads/Sheltered.png" },
   { title: "Meadowe", category: "pets", img: "uploads/retriever2.JPG" },
   { title: "Lifebuoy", category: "landscape", img: "uploads/Lifebuoy.png" },
   { title: "The Armchair", category: "other", img: "uploads/chair.JPG" },
   { title: "Towers", category: "landscape", img: "uploads/Towers.png" },
+  { title: "Molly", category: "pets", img: "uploads/Molly.png" },
   { title: "By the Lighthouse", category: "portrait", img: "uploads/lighthouse-couple.JPG" },
   { title: "The Big House", category: "landscape", img: "uploads/The Big House.png" },
   { title: "Cat Study", category: "pets", img: "uploads/cat.JPG" },
@@ -170,14 +189,15 @@ const FILTERS = [
   { key: 'portrait', label: 'Life Drawing & Portraits' },
   { key: 'pets', label: 'Pets' },
   { key: 'nature', label: 'Nature' },
-  { key: 'other', label: 'Other' }
+  { key: 'other', label: 'Other' },
+  { key: 'forsale', label: 'For Sale' }
 ];
 const PAGE = 15;
 
 class Component extends DCLogic {
   state = { filter: 'all', lightboxWork: null, page: 0 };
   visibleWorks() {
-    return WORKS.filter(w => this.state.filter === 'all' || w.category === this.state.filter);
+    return WORKS.filter(w => this.state.filter === 'all' || w.category === this.state.filter || (this.state.filter === 'forsale' && w.forSale));
   }
   step(dir) {
     const v = this.visibleWorks();
@@ -188,6 +208,7 @@ class Component extends DCLogic {
     this.setState({ lightboxWork: list[(i + dir + list.length) % list.length] });
   }
   componentDidMount() {
+    if (window.location.hash === '#forsale') this.setState({ filter: 'forsale', page: 0 });
     this._key = (e) => {
       if (!this.state.lightboxWork) return;
       if (e.key === 'ArrowRight') this.step(1);
@@ -209,7 +230,11 @@ class Component extends DCLogic {
     return {
       filters: FILTERS.map(f => ({
         label: f.label,
-        style: this.state.filter === f.key ? { ...base, ...on } : base,
+        style: f.key === 'forsale'
+          ? (this.state.filter === f.key
+              ? { ...base, background: '#F2C46D', color: '#0E4A47', border: '1px solid #F2C46D', fontWeight: 500 }
+              : { ...base, color: '#F2C46D', border: '1px solid #F2C46D', fontWeight: 500 })
+          : (this.state.filter === f.key ? { ...base, ...on } : base),
         onClick: () => this.setState({ filter: f.key, page: 0 })
       })),
       works: WORKS.map(w => {
@@ -221,6 +246,8 @@ class Component extends DCLogic {
           onClick: () => this.setState({ lightboxWork: w })
         };
       }),
+      isForSale: this.state.filter === 'forsale',
+      notForSale: this.state.filter !== 'forsale',
       countLabel: (start + 1) + '–' + (start + slice.length) + ' of ' + visible.length,
       hasPrevPage: page > 0,
       hasNextPage: page < pages - 1,
