@@ -209,6 +209,8 @@ class Component extends DCLogic {
   }
   componentDidMount() {
     if (window.location.hash === '#forsale') this.setState({ filter: 'forsale', page: 0 });
+    this._hash = () => { if (window.location.hash === '#forsale') this.setState({ filter: 'forsale', page: 0 }); };
+    window.addEventListener('hashchange', this._hash);
     this._key = (e) => {
       if (!this.state.lightboxWork) return;
       if (e.key === 'ArrowRight') this.step(1);
@@ -217,7 +219,7 @@ class Component extends DCLogic {
     };
     window.addEventListener('keydown', this._key);
   }
-  componentWillUnmount() { window.removeEventListener('keydown', this._key); }
+  componentWillUnmount() { window.removeEventListener('keydown', this._key); window.removeEventListener('hashchange', this._hash); }
   renderVals() {
     const base = { background: 'none', border: '1px solid rgba(255,255,255,0.35)', borderRadius: '0', padding: '10px 20px', fontFamily: "'Jost', sans-serif", fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', cursor: 'pointer', color: 'rgba(255,255,255,0.8)' };
     const on = { background: '#FFFFFF', color: '#0E4A47', border: '1px solid #FFFFFF' };
@@ -235,7 +237,7 @@ class Component extends DCLogic {
               ? { ...base, background: '#F2C46D', color: '#0E4A47', border: '1px solid #F2C46D', fontWeight: 500 }
               : { ...base, color: '#F2C46D', border: '1px solid #F2C46D', fontWeight: 500 })
           : (this.state.filter === f.key ? { ...base, ...on } : base),
-        onClick: () => this.setState({ filter: f.key, page: 0 })
+        onClick: () => { if (f.key !== 'forsale' && window.location.hash) history.replaceState(null, '', window.location.pathname + window.location.search); this.setState({ filter: f.key, page: 0 }); }
       })),
       works: WORKS.map(w => {
         const zoom = w.zoom || 1;

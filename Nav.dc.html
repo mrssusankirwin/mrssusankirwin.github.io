@@ -12,6 +12,7 @@
   <ul class="nav-links" style="display:flex;gap:38px;list-style:none;margin:0;padding:0;flex-wrap:wrap;justify-content:center">
     <li><a href="Home.dc.html" style="{{ homeStyle }}">Home</a></li>
     <li><a href="Gallery.dc.html" style="{{ galleryStyle }}">Gallery</a></li>
+    <li><a href="Gallery.dc.html#forsale" style="{{ forSaleStyle }}">For Sale</a></li>
     <li><a href="Commissions.dc.html" style="{{ commissionsStyle }}">Commissions</a></li>
     <li><a href="About.dc.html" style="{{ aboutStyle }}">About</a></li>
     <li><a href="Contact.dc.html" style="{{ contactStyle }}">Contact</a></li>
@@ -25,7 +26,7 @@ class Component extends DCLogic {
     const base = {fontFamily:"'Jost', sans-serif",fontSize:'0.74rem',letterSpacing:'0.2em',textTransform:'uppercase',color:'rgba(255,255,255,0.72)',paddingBottom:'4px',borderBottom:'1px solid transparent'};
     const on = {color:'#FFFFFF',borderBottom:'1px solid rgba(255,255,255,0.6)'};
     const mk = k => c === k ? {...base, ...on} : base;
-    return {homeStyle:mk('home'),galleryStyle:mk('gallery'),commissionsStyle:mk('commissions'),aboutStyle:mk('about'),contactStyle:mk('contact')};
+    return {forSaleStyle:mk('forsale'),homeStyle:mk('home'),galleryStyle:mk('gallery'),commissionsStyle:mk('commissions'),aboutStyle:mk('about'),contactStyle:mk('contact')};
   }
 }
 </script>
