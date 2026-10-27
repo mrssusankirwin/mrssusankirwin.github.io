@@ -216,11 +216,10 @@ class Component extends DCLogic {
   }
   step(dir) {
     const v = this.visibleWorks();
-    const st = this.state.page * PAGE;
-    const list = v.slice(st, st + PAGE);
-    const i = list.findIndex(w => w.img === (this.state.lightboxWork || {}).img);
+    const i = v.findIndex(w => w.img === (this.state.lightboxWork || {}).img);
     if (i === -1) return;
-    this.setState({ lightboxWork: list[(i + dir + list.length) % list.length] });
+    const n = (i + dir + v.length) % v.length;
+    this.setState({ lightboxWork: v[n], page: Math.floor(n / PAGE) });
   }
   componentDidMount() {
     if (window.location.hash === '#forsale') this.setState({ filter: 'forsale', page: 0 });
